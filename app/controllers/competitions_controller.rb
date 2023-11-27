@@ -19,6 +19,12 @@ class CompetitionsController < ApplicationController
     render json: @teams
   end
 
+  def games
+    @competition = Competition.find(params[:id])
+    @games = Game.where(competition_id: @competition.id)
+    render json: @games, include: [:team_home, :team_away]
+  end
+
   # POST /competitions
   def create
     @competition = Competition.new(competition_params)

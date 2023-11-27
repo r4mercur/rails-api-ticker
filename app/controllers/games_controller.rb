@@ -4,13 +4,12 @@ class GamesController < ApplicationController
   # GET /games
   def index
     @games = Game.all
-
-    render json: @games
+    render json: @games, include: [:team_home, :team_away]
   end
 
   # GET /games/1
   def show
-    render json: @game
+    render json: @game, include: [:team_home, :team_away]
   end
 
   # POST /games
