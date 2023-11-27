@@ -13,4 +13,6 @@ Rails.application.routes.draw do
 
   post "/api/login", to: "sessions#create"
   post "/api/logout", to: "sessions#destroy"
+
+  get "/api/competitions/:id/teams", to: "competitions#teams"
 end

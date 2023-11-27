@@ -13,6 +13,12 @@ class CompetitionsController < ApplicationController
     render json: @competition
   end
 
+  def teams
+    @competition = Competition.find(params[:id])
+    @teams = @competition.teams
+    render json: @teams
+  end
+
   # POST /competitions
   def create
     @competition = Competition.new(competition_params)

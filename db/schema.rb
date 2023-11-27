@@ -10,11 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_27_150513) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_27_164742) do
   create_table "competitions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.integer "competition_id", null: false
+    t.integer "team_home_id", null: false
+    t.integer "team_away_id", null: false
+    t.integer "team_home_score"
+    t.integer "team_away_score"
+    t.integer "match_day"
+    t.datetime "date"
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_games_on_competition_id"
+    t.index ["team_away_id"], name: "index_games_on_team_away_id"
+    t.index ["team_home_id"], name: "index_games_on_team_home_id"
   end
 
   create_table "participations", force: :cascade do |t|
@@ -39,6 +55,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_150513) do
     t.string "password_digest"
   end
 
+  add_foreign_key "games", "competitions"
+  add_foreign_key "games", "team_aways"
+  add_foreign_key "games", "team_homes"
   add_foreign_key "participations", "competitions"
   add_foreign_key "participations", "teams"
 end

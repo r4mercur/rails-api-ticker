@@ -18,6 +18,12 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
 
     if @team.save
+      # create mapping participant to competition
+      if params[:competition_id]
+        @competition = Competition.find(params[:competition_id])
+        @participation = Participation.create(team: @team, competition: @competition)
+      end
+
       render json: @team, status: :created, location: @team
     else
       render json: @team.errors, status: :unprocessable_entity
@@ -46,6 +52,6 @@ class TeamsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def team_params
-      params.require(:team).permit(:name)
+      params.require(:team).permit(:name, :competition_id)
     end
 end
