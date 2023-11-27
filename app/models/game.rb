@@ -3,9 +3,9 @@ class Game < ApplicationRecord
   belongs_to :team_home, class_name: 'Team'
   belongs_to :team_away, class_name: 'Team'
 
-  validates :team_home_score, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
-  validates :team_away_score, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
-  validates :match_day, numericality: { greater_than_or_equal_to: 1 }
+  validates :goals_home, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+  validates :goals_away, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+  validates :match_day, numericality: { only_integer: true }
   validates :date, presence: true
   validates :location, presence: true
 
