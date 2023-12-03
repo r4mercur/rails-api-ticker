@@ -30,6 +30,25 @@ class TeamsController < ApplicationController
     end
   end
 
+  def upload_team_logo
+    @team = Team.find(params[:id])
+    if @team && params[:logo]
+      base64_data = params[:logo].sub(/^data:image\/\w+;base64,/, '')
+      file_data = Base64.decode64(base64_data)
+
+      filename = "team_#{params[:id]}.png"
+      filepath = Rails.root.join('public', 'images', filename)
+
+      File.open(filepath, 'wb') do |file|
+        file.write(file_data)
+      end
+
+      render json: { success: true, message: 'Logo uploaded successfully' }
+    else
+      render json: { success: false, message: 'Logo upload failed' }
+    end
+  end
+
   # PATCH/PUT /teams/1
   def update
     if @team.update(team_params)
