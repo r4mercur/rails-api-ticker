@@ -24,6 +24,11 @@ class TickersController < ApplicationController
     end
   end
 
+  def get_ticker_by_user_id
+    @ticker = Ticker.where(user_id: params[:id])
+    render json: @ticker.as_json(include: [:game])
+  end
+
   # PATCH/PUT /tickers/1
   def update
     if @ticker.update(ticker_params)
@@ -46,6 +51,6 @@ class TickersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticker_params
-      params.fetch(:ticker, {})
+      params.require(:ticker).permit(:game_id, :user_id)
     end
 end

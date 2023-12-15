@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post "/api/logout", to: "sessions#destroy"
   post "/api/teams/:id/upload_logo", to: "teams#upload_team_logo"
 
+  get "/api/users/:id/tickers", to: "tickers#get_ticker_by_user_id"
   get "/api/competitions/:id/teams", to: "competitions#teams"
   get "/api/competitions/:id/games", to: "competitions#games"
 end
