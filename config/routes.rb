@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :ticker_events
   resources :tickers
   resources :players
   resources :teams
