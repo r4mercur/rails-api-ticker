@@ -13,7 +13,7 @@
 					"name": "Sven Ulreich",
 					"age": 32,
 					"position": "Goalkeeper",
-					"number": 26,
+					"number": 26
 				},
 				{
 					"name": "Min-Jae Kim",
@@ -74,7 +74,7 @@
 					"age": 18,
 					"position": "Midfielder",
 					"number": 42
-				},
+				}
 			]
 		},
 		{

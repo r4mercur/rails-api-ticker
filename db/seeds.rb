@@ -34,16 +34,21 @@ end
 # Teams
 teams_data = get_data_from_json('teams.json')
 teams_data['teams'].each do |competition_data|
-  competition = Competition.find_by(name: competition_data['competition'])
+  # competition = Competition.find_by(name: competition_data['competition'])
   competition_data['teams'].each do |team|
-    Team.find_or_create_by!(name: team['name'], shortname: team['shortName'], competition: competition)
+    Team.find_or_create_by!(name: team['name'], shortname: team['shortName'])
   end
 end
 
 # Players
+# Players
 players_data = get_data_from_json('players.json')
 players_data['players'].each do |player_data|
   team = Team.find_by(name: player_data['team'])
+  if team.nil?
+    puts "Team not found: #{player_data['team']}"
+    next
+  end
   player_data['players'].each do |player|
     Player.find_or_create_by!(
       name: player['name'],
