@@ -15,8 +15,14 @@ require 'json'
 
 # Get data from JSON files
 def get_data_from_json(file_name)
-  file = File.read(Rails.root.join('db', 'datasets', file_name))
-  JSON.parse(file)
+  file_path = Rails.root.join('db', 'datasets', file_name)
+  file_content = File.read(file_path)
+  puts "Reading file: #{file_path}"
+  puts "File content: #{file_content}"
+  JSON.parse(file_content)
+rescue JSON::ParserError => e
+  puts "JSON::ParserError: #{e.message}"
+  raise
 end
 
 # Competitions
@@ -27,19 +33,25 @@ end
 
 # Teams
 teams_data = get_data_from_json('teams.json')
-teams_data['teams'].each do |team|
-  Team.find_or_create_by!(name: team['name'], shortname: team['shortName'])
+teams_data['teams'].each do |competition_data|
+  competition = Competition.find_by(name: competition_data['competition'])
+  competition_data['teams'].each do |team|
+    Team.find_or_create_by!(name: team['name'], shortname: team['shortName'], competition: competition)
+  end
 end
 
 # Players
 players_data = get_data_from_json('players.json')
-players_data['players'].each do |player|
-  Player.find_or_create_by!(
-    name: player['name'],
-    age: player['age'],
-    number: player['number'],
-    position: player['position']
-  )
+players_data['players'].each do |player_data|
+  team = Team.find_by(name: player_data['team'])
+  player_data['players'].each do |player|
+    Player.find_or_create_by!(
+      name: player['name'],
+      age: player['age'],
+      position: player['position'],
+      team: team
+    )
+  end
 end
 
 # Users

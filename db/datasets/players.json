@@ -1,0 +1,92 @@
+{
+	"players": [
+		{
+			"team": "FC Bayern Munich",
+			"players": [
+				{
+					"name": "Manuel Neuer",
+					"age": 35,
+					"position": "Goalkeeper",
+					"number": 1
+				},
+				{
+					"name": "Sven Ulreich",
+					"age": 32,
+					"position": "Goalkeeper",
+					"number": 26,
+				},
+				{
+					"name": "Min-Jae Kim",
+					"age": 24,
+					"position": "Defender",
+					"number": 4
+				},
+				{
+					"name": "Dayot Upamecano",
+					"age": 22,
+					"position": "Defender",
+					"number": 5
+				},
+				{
+					"name": "Alphonso Davies",
+					"age": 20,
+					"position": "Defender",
+					"number": 19
+				},
+				{
+					"name": "Eric Dier",
+					"age": 27,
+					"position": "Defender",
+					"number": 15
+				},
+				{
+					"name": "Raphaël Guerreiro",
+					"age": 27,
+					"position": "Defender",
+					"number": 22
+				},
+				{
+					"name": "Sacha Boey",
+					"age": 20,
+					"position": "Defender",
+					"number": 23
+				},
+				{
+					"name": "Joshua Kimmich",
+					"age": 26,
+					"position": "Midfielder",
+					"number": 6
+				},
+				{
+					"name": "Leon Goretzka",
+					"age": 26,
+					"position": "Midfielder",
+					"number": 18
+				},
+				{
+					"name": "Thomas Müller",
+					"age": 31,
+					"position": "Midfielder",
+					"number": 25
+				},
+				{
+					"name": "Jamal Musiala",
+					"age": 18,
+					"position": "Midfielder",
+					"number": 42
+				},
+			]
+		},
+		{
+			"team": "FC Barcelona",
+			"players": [
+				{
+					"name": "Robert Lewandowski",
+					"age": 32,
+					"position": "Striker",
+					"number": 9
+				}
+			]
+		}
+	]
+}
