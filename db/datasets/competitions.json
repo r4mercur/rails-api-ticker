@@ -1,16 +1,16 @@
 {
-	"competitons": [
+	"competitions": [
 		{
-			"name": "Bundesliga",
+			"name": "Bundesliga"
 		},
 		{
-			"name": "Premier League",
+			"name": "Premier League"
 		},
 		{
-			"name": "Serie A",
+			"name": "Serie A"
 		},
 		{
-			"name": "La Liga",
+			"name": "La Liga"
 		}
 	]
 }

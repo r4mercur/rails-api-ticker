@@ -2,183 +2,183 @@
 	"teams": [
 		{
 			"name": "FC Bayern Munich",
-			"shortName": "FCB",
+			"shortName": "FCB"
 		},
 		{
 			"name": "Borussia Dortmund",
-			"shortName": "BVB",
+			"shortName": "BVB"
 		},
 		{
 			"name": "RB Leipzig",
-			"shortName": "RBL",
+			"shortName": "RBL"
 		},
 		{
 			"name": "Bayer 04 Leverkusen",
-			"shortName": "B04",
+			"shortName": "B04"
 		},
 		{
 			"name": "VfL Wolfsburg",
-			"shortName": "WOB",
+			"shortName": "WOB"
 		},
 		{
 			"name": "Eintracht Frankfurt",
-			"shortName": "SGE",
+			"shortName": "SGE"
 		},
 		{
 			"name": "Borussia Mönchengladbach",
-			"shortName": "BMG",
+			"shortName": "BMG"
 		},
 		{
 			"name": "1. FC Union Berlin",
-			"shortName": "FCU",
+			"shortName": "FCU"
 		},
 		{
 			"name": "VfB Stuttgart",
-			"shortName": "VFB",
+			"shortName": "VFB"
 		},
 		{
 			"name": "SC Freiburg",
-			"shortName": "SCF",
+			"shortName": "SCF"
 		},
 		{
 			"name": "Heidenheim 1846",
-			"shortName": "FCH",
+			"shortName": "FCH"
 		},
 		{
 			"name": "FC St. Pauli",
-			"shortName": "STP",
+			"shortName": "STP"
 		},
 		{
 			"name": "TSG 1899 Hoffenheim",
-			"shortName": "TSG",
+			"shortName": "TSG"
 		},
 		{
 			"name": "Vfl Bochum",
-			"shortName": "BOC",
+			"shortName": "BOC"
 		},
 		{
 			"name": "FC Augsburg",
-			"shortName": "FCA",
+			"shortName": "FCA"
 		},
 		{
 			"name": "Holstein Kiel",
-			"shortName": "KSV",
+			"shortName": "KSV"
 		},
 		{
 			"name": "1 FSV Mainz 05",
-			"shortName": "M05",
+			"shortName": "M05"
 		},
 		{
 			"name": "Werder Bremen",
-			"shortName": "SVW",
+			"shortName": "SVW"
 		},
 		{
 			"name": "Chelsea FC",
-			"shortName": "CFC",
+			"shortName": "CFC"
 		},
 		{
 			"name": "Liverpool FC",
-			"shortName": "LFC",
+			"shortName": "LFC"
 		},
 		{
 			"name": "Manchester United",
-			"shortName": "MUN",
+			"shortName": "MUN"
 		},
 		{
 			"name": "Manchester City",
-			"shortName": "MCI",
+			"shortName": "MCI"
 		},
 		{
 			"name": "Arsenal FC",
-			"shortName": "AFC",
+			"shortName": "AFC"
 		},
 		{
 			"name": "Tottenham Hotspur",
-			"shortName": "TOT",
+			"shortName": "TOT"
 		},
 		{
 			"name": "Leicester City",
-			"shortName": "LEI",
+			"shortName": "LEI"
 		},
 		{
 			"name": "Everton FC",
-			"shortName": "EVE",
+			"shortName": "EVE"
 		},
 		{
 			"name": "West Ham United",
-			"shortName": "WHU",
+			"shortName": "WHU"
 		},
 		{
 			"name": "Aston Villa",
-			"shortName": "AVL",
+			"shortName": "AVL"
 		},
 		{
 			"name": "Fulham FC",
-			"shortName": "FUL",
+			"shortName": "FUL"
 		},
 		{
 			"name": "Crystal Palace",
-			"shortName": "CRY",
+			"shortName": "CRY"
 		},
 		{
 			"name": "Southampton FC",
-			"shortName": "SOU",
+			"shortName": "SOU"
 		},
 		{
 			"name": "Wolverhampton Wanderers",
-			"shortName": "WOL",
+			"shortName": "WOL"
 		},
 		{
 			"name": "Brighton & Hove Albion",
-			"shortName": "BHA",
+			"shortName": "BHA"
 		},
 		{
 			"name": "Burnley FC",
-			"shortName": "BUR",
+			"shortName": "BUR"
 		},
 		{
 			"name": "Newcastle United",
-			"shortName": "NEW",
+			"shortName": "NEW"
 		},
 		{
 			"name": "Sheffield United",
-			"shortName": "SHU",
+			"shortName": "SHU"
 		},
 		{
 			"name": "Leeds United",
-			"shortName": "LEE",
+			"shortName": "LEE"
 		},
 		{
 			"name": "Inter Milan",
-			"shortName": "INT",
+			"shortName": "INT"
 		},
 		{
 			"name": "AC Milan",
-			"shortName": "ACM",
+			"shortName": "ACM"
 		},
 		{
 			"name": "Juventus FC",
-			"shortName": "JUV",
+			"shortName": "JUV"
 		},
 		{
 			"name": "AS Roma",
-			"shortName": "ROM",
+			"shortName": "ROM"
 		},
 		{
 			"name": "SS Lazio",
-			"shortName": "LAZ",
+			"shortName": "LAZ"
 		},
 		{
 			"name": "Napoli",
-			"shortName": "NAP",
+			"shortName": "NAP"
 		},
 		{
 			"name": "FC Barcelona",
-			"shortName": "FCB",
+			"shortName": "FCB"
 		},
 		{
 			"name": "Real Madrid",
-			"shortName": "RMA",
+			"shortName": "RMA"
 		}
 	]
 }
