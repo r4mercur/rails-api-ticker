@@ -9,7 +9,25 @@
 #   end
 
 require 'faker'
+require 'json'
 
+# Competitions
+competitions_file = File.read(Rails.root.join('db', 'datasets', 'competitions.json'))
+competitions_data = JSON.parse(competitions_file)
+
+competitions_data['competitions'].each do |competition|
+  Competition.find_or_create_by!(name: competition['name'])
+end
+
+# Teams
+teams_file = File.read(Rails.root.join('db', 'datasets', 'teams.json'))
+teams_data = JSON.parse(teams_file)
+
+teams_data['teams'].each do |team|
+  Team.find_or_create_by!(name: team['name'], shortname: team['shortname'])
+end
+
+# Users
 10.times do
   User.create(
     email: Faker::Internet.email,

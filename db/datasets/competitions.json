@@ -1,0 +1,16 @@
+{
+	"competitons": [
+		{
+			"name": "Bundesliga",
+		},
+		{
+			"name": "Premier League",
+		},
+		{
+			"name": "Serie A",
+		},
+		{
+			"name": "La Liga",
+		}
+	]
+}
