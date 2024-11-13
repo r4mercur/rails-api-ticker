@@ -5,71 +5,88 @@
 			"teams": [
 				{
 					"name": "Bayern Munich",
-					"shortName": "FCB"
+					"shortName": "FCB",
+					"logoUrl": ""
 				},
 				{
 					"name": "Borussia Dortmund",
-					"shortName": "BVB"
+					"shortName": "BVB",
+					"logoUrl": ""
 				},
 				{
 					"name": "RB Leipzig",
-					"shortName": "RBL"
+					"shortName": "RBL",
+					"logoUrl": ""
 				},
 				{
 					"name": "Bayer Leverkusen",
-					"shortName": "B04"
+					"shortName": "B04",
+					"logoUrl": ""
 				},
 				{
 					"name": "VfL Wolfsburg",
-					"shortName": "WOB"
+					"shortName": "WOB",
+					"logoUrl": ""
 				},
 				{
 					"name": "Eintracht Frankfurt",
-					"shortName": "SGE"
+					"shortName": "SGE",
+					"logoUrl": ""
 				},
 				{
 					"name": "Borussia Mönchengladbach",
-					"shortName": "BMG"
+					"shortName": "BMG",
+					"logoUrl": ""
 				},
 				{
 					"name": "VfB Stuttgart",
-					"shortName": "VFB"
+					"shortName": "VFB",
+					"logoUrl": ""
 				},
 				{
 					"name": "SC Freiburg",
-					"shortName": "SCF"
+					"shortName": "SCF",
+					"logoUrl": ""
 				},
 				{
 					"name": "FC Augsburg",
-					"shortName": "FCA"
+					"shortName": "FCA",
+					"logoUrl": ""
 				},
 				{
 					"name": "FC ST. Pauli",
-					"shortName": "STP"
+					"shortName": "STP",
+					"logoUrl": ""
 				},
 				{
 					"name": "Holsstein Kiel",
-					"shortName": "KIE"
+					"shortName": "KIE",
+					"logoUrl": ""
 				},
 				{
 					"name": "1. FC Union Berlin",
-					"shortName": "FCU"
+					"shortName": "FCU",
+					"logoUrl": ""
 				},
 				{
 					"name": "1. FS Mainz 05",
-					"shortName": "M05"
+					"shortName": "M05",
+					"logoUrl": ""
 				},
 				{
 					"name": "TSG Hoffenheim",
-					"shortName": "TSG"
+					"shortName": "TSG",
+					"logoUrl": ""
 				},
 				{
 					"name": "VfL Bochum",
-					"shortName": "BOC"
+					"shortName": "BOC",
+					"logoUrl": ""
 				},
 				{
 					"name": "Werder Bremen",
-					"shortName": "SVW"
+					"shortName": "SVW",
+					"logoUrl": ""
 				}
 			]
 		},
@@ -78,11 +95,13 @@
 			"teams": [
 				{
 					"name": "Manchester United",
-					"shortName": "MUFC"
+					"shortName": "MUFC",
+					"logoUrl": ""
 				},
 				{
 					"name": "Chelsea",
-					"shortName": "CFC"
+					"shortName": "CFC",
+					"logoUrl": ""
 				}
 			]
 		}

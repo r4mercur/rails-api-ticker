@@ -36,7 +36,11 @@ teams_data = get_data_from_json('teams.json')
 teams_data['teams'].each do |competition_data|
   # competition = Competition.find_by(name: competition_data['competition'])
   competition_data['teams'].each do |team|
-    Team.find_or_create_by!(name: team['name'], shortname: team['shortName'])
+    Team.find_or_create_by!(
+      name: team['name'],
+      shortname: team['shortName'],
+      logo_url: team['logoUrl']
+    )
   end
 end
 
