@@ -34,17 +34,22 @@ end
 # Teams
 teams_data = get_data_from_json('teams.json')
 teams_data['teams'].each do |competition_data|
-  # competition = Competition.find_by(name: competition_data['competition'])
+  competition = Competition.find_by(name: competition_data['competition'])
   competition_data['teams'].each do |team|
-    Team.find_or_create_by!(
+    team = Team.find_or_create_by!(
       name: team['name'],
       shortname: team['shortName'],
       logo_url: team['logoUrl']
     )
+
+    # Add team to competition
+    Participation.find_or_create_by!(
+      team: team,
+      competition: competition
+    )
   end
 end
 
-# Players
 # Players
 players_data = get_data_from_json('players.json')
 players_data['players'].each do |player_data|
@@ -57,9 +62,41 @@ players_data['players'].each do |player_data|
     Player.find_or_create_by!(
       name: player['name'],
       age: player['age'],
+      number: player['number'],
       position: player['position'],
       team: team
     )
+    puts "Player created: #{player['name']}"
+  end
+end
+
+# Games
+teams_data['teams'].each do |competition_data|
+  competition = Competition.find_by(name: competition_data['competition'])
+  next if competition.nil?
+
+  # here we are creating games for each team in the competition
+  # we are creating a game for each team against each other team
+  # so if we 18 teams we will have 18 * 17 games
+  competition_data['teams'].each do |team_data|
+    home_team = Team.find_by(name: team_data['name'])
+    next if home_team.nil?
+
+    competition_data['teams'].each do |away_team_data|
+      away_team = Team.find_by(name: away_team_data['name'])
+      next if away_team.nil?
+
+      next if home_team == away_team
+
+      Game.find_or_create_by!(
+        team_home: home_team,
+        team_away: away_team,
+        competition: competition,
+        match_day: Faker::Number.between(from: 1, to: 38),
+        date: Faker::Date.between(from: 1.year.ago, to: 1.year.from_now),
+        location: Faker::Address.full_address
+      )
+    end
   end
 end
 

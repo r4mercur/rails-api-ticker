@@ -104,6 +104,21 @@
 					"logoUrl": ""
 				}
 			]
+		},
+		{
+			"competition": "La Liga",
+			"teams": [
+				{
+					"name": "FC Barcelona",
+					"shortName": "FCB",
+					"logoUrl": ""
+				},
+				{
+					"name": "Real Madrid",
+					"shortName": "RM",
+					"logoUrl": ""
+				}
+			]
 		}
 	]
 }
