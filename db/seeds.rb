@@ -82,7 +82,7 @@ teams_data['teams'].each do |competition_data|
     home_team = Team.find_by(name: team_data['name'])
     next if home_team.nil?
 
-    competition_data['teams'].each do |away_team_data|
+    competition_data['teams'].each_with_index do |away_team_data, index|
       away_team = Team.find_by(name: away_team_data['name'])
       next if away_team.nil?
 
@@ -92,7 +92,7 @@ teams_data['teams'].each do |competition_data|
         team_home: home_team,
         team_away: away_team,
         competition: competition,
-        match_day: Faker::Number.between(from: 1, to: 38),
+        match_day: index + 1,
         date: Faker::Date.between(from: 1.year.ago, to: 1.year.from_now),
         location: Faker::Address.full_address
       )
