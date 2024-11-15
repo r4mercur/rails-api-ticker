@@ -1,5 +1,5 @@
 class CompetitionsController < ApplicationController
-  before_action :set_competition, only: %i[ show update destroy ]
+  before_action :set_competition, only: %i[show update destroy]
 
   # GET /competitions
   def index
@@ -22,7 +22,13 @@ class CompetitionsController < ApplicationController
   def games
     @competition = Competition.find(params[:id])
     @games = Game.where(competition_id: @competition.id)
-    render json: @games, include: [:team_home, :team_away]
+    render json: @games, include: %i[team_home team_away]
+  end
+
+  def games_by_day
+    @competition = Competition.find(params[:id])
+    @games = Game.where(competition_id: @competition.id, match_day: params[:game_day])
+    render json: @games, include: %i[team_home team_away]
   end
 
   # POST /competitions
@@ -51,13 +57,13 @@ class CompetitionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_competition
-      @competition = Competition.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_competition
+    @competition = Competition.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def competition_params
-      params.require(:competition).permit(:name, :type)
-    end
+  # Only allow a list of trusted parameters through.
+  def competition_params
+    params.require(:competition).permit(:name, :type)
+  end
 end

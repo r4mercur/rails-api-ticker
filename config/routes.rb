@@ -22,4 +22,5 @@ Rails.application.routes.draw do
   get "/api/users/:id/tickers", to: "tickers#get_ticker_by_user_id"
   get "/api/competitions/:id/teams", to: "competitions#teams"
   get "/api/competitions/:id/games", to: "competitions#games"
+  get "/api/competitions/:id/games/:game_day", to: "competitions#games_by_day"
 end
