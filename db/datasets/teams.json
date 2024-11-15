@@ -6,87 +6,87 @@
 				{
 					"name": "Bayern Munich",
 					"shortName": "FCB",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/contender/2024/5/FCB_Standard_Logo_RGB.svg"
 				},
 				{
 					"name": "Borussia Dortmund",
 					"shortName": "BVB",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/contender/2023/5/BVB_Standard_Logo_RGB__3_.png"
 				},
 				{
 					"name": "RB Leipzig",
 					"shortName": "RBL",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/Leipzig.png"
 				},
 				{
 					"name": "Bayer Leverkusen",
 					"shortName": "B04",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/Leverkusen.png"
 				},
 				{
 					"name": "VfL Wolfsburg",
 					"shortName": "WOB",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/contender/2023/5/WOB_Standard_Logo_RGB__2_.png"
 				},
 				{
 					"name": "Eintracht Frankfurt",
 					"shortName": "SGE",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2022/06/Frankfurt-SGE.png"
 				},
 				{
 					"name": "Borussia Mönchengladbach",
 					"shortName": "BMG",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/Moenchengladbach.png"
 				},
 				{
 					"name": "VfB Stuttgart",
 					"shortName": "VFB",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/Stuttgart.png"
 				},
 				{
 					"name": "SC Freiburg",
 					"shortName": "SCF",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/Freiburg.png"
 				},
 				{
 					"name": "FC Augsburg",
 					"shortName": "FCA",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/Augsburg.png"
 				},
 				{
 					"name": "FC ST. Pauli",
 					"shortName": "STP",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/St-Pauli.png"
 				},
 				{
 					"name": "Holsstein Kiel",
 					"shortName": "KIE",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/Kiel.png"
 				},
 				{
 					"name": "1. FC Union Berlin",
 					"shortName": "FCU",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/Union-Berlin.png"
 				},
 				{
 					"name": "1. FS Mainz 05",
 					"shortName": "M05",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/Mainz.png"
 				},
 				{
 					"name": "TSG Hoffenheim",
 					"shortName": "TSG",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/Hoffenheim.png"
 				},
 				{
 					"name": "VfL Bochum",
 					"shortName": "BOC",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/Bochum.png"
 				},
 				{
 					"name": "Werder Bremen",
 					"shortName": "SVW",
-					"logoUrl": ""
+					"logoUrl": "https://assets.bundesliga.com/tachyon/sites/2/2021/08/Bremen.png"
 				}
 			]
 		},

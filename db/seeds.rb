@@ -88,12 +88,17 @@ teams_data['teams'].each do |competition_data|
 
       next if home_team == away_team
 
+      random_date = Faker::Date.between(from: 1.year.ago, to: 1.year.from_now)
+      match_time = Faker::Time.between(from: random_date.to_time + 15.hours,
+                                       to: random_date.to_time + 20.hours + 30.minutes)
+
+
       Game.find_or_create_by!(
         team_home: home_team,
         team_away: away_team,
         competition: competition,
         match_day: index + 1,
-        date: Faker::Date.between(from: 1.year.ago, to: 1.year.from_now),
+        date: match_time,
         location: Faker::Address.full_address
       )
     end
