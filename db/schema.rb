@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_13_122219) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_04_134935) do
   create_table "competitions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -82,6 +82,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_13_122219) do
     t.integer "goals_away"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "ticker_state"
     t.index ["game_id"], name: "index_tickers_on_game_id"
     t.index ["user_id"], name: "index_tickers_on_user_id"
   end
