@@ -4,10 +4,11 @@ class Ticker < ApplicationRecord
 
   validates :game_id, presence: true
   validates :user_id, presence: true
+  validates :ticker_state, presence: true
 
-  attribute :ticket_state, :integer
+  attribute :ticker_state, :integer
 
-  enum ticket_state: {
+  enum ticker_state: {
     not_started: 0,
     first_half: 1,
     second_half: 2,

@@ -82,7 +82,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_134935) do
     t.integer "goals_away"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "ticker_state"
+    t.integer "ticker_state", default: 0, null: false
     t.index ["game_id"], name: "index_tickers_on_game_id"
     t.index ["user_id"], name: "index_tickers_on_user_id"
   end
