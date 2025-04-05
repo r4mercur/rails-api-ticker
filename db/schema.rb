@@ -63,7 +63,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_134935) do
 
   create_table "ticker_events", force: :cascade do |t|
     t.integer "ticker_id", null: false
-    t.integer "user_id", null: false
     t.integer "team_id"
     t.integer "event_type"
     t.string "text"
@@ -71,12 +70,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_134935) do
     t.datetime "updated_at", null: false
     t.index ["team_id"], name: "index_ticker_events_on_team_id"
     t.index ["ticker_id"], name: "index_ticker_events_on_ticker_id"
-    t.index ["user_id"], name: "index_ticker_events_on_user_id"
   end
 
   create_table "tickers", force: :cascade do |t|
     t.integer "game_id", null: false
-    t.integer "user_id", null: false
     t.datetime "date"
     t.integer "goals_home"
     t.integer "goals_away"
@@ -84,15 +81,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_134935) do
     t.datetime "updated_at", null: false
     t.integer "ticker_state", default: 0, null: false
     t.index ["game_id"], name: "index_tickers_on_game_id"
-    t.index ["user_id"], name: "index_tickers_on_user_id"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "password_digest"
-    t.boolean "is_admin", default: false
   end
 
   add_foreign_key "games", "competitions"
@@ -103,7 +91,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_134935) do
   add_foreign_key "players", "teams"
   add_foreign_key "ticker_events", "teams"
   add_foreign_key "ticker_events", "tickers"
-  add_foreign_key "ticker_events", "users"
   add_foreign_key "tickers", "games"
-  add_foreign_key "tickers", "users"
 end
