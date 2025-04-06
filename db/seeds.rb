@@ -109,7 +109,7 @@ end
 10.times do
   User.create(
     email: Faker::Internet.email,
-    password: Faker::Internet.password,
-    is_admin: false
+    username: Faker::Internet.user_name,
+    password: Faker::Internet.password
   )
 end

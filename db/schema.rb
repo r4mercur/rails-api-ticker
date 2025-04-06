@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_04_134935) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_06_072603) do
   create_table "competitions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -68,6 +68,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_134935) do
     t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["team_id"], name: "index_ticker_events_on_team_id"
     t.index ["ticker_id"], name: "index_ticker_events_on_ticker_id"
   end
@@ -80,7 +81,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_134935) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "ticker_state", default: 0, null: false
+    t.integer "user_id"
     t.index ["game_id"], name: "index_tickers_on_game_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.string "username"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "games", "competitions"
