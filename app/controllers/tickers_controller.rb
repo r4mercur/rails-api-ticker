@@ -10,7 +10,15 @@ class TickersController < ApplicationController
 
   # GET /tickers/1
   def show
-    render json: @ticker
+    @ticker = Ticker.find(params[:id])
+    render json: @ticker.as_json(include: {
+      game: {
+        include: {
+          team_home: { include: :players },
+          team_away: { include: :players }
+        }
+      }
+    })
   end
 
   # POST /tickers
