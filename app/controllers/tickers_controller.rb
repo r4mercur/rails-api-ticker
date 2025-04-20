@@ -17,7 +17,8 @@ class TickersController < ApplicationController
           team_home: { include: :players },
           team_away: { include: :players }
         }
-      }
+      },
+      ticker_events: {}
     })
   end
 

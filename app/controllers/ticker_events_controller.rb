@@ -18,7 +18,7 @@ class TickerEventsController < ApplicationController
     @ticker_event = TickerEvent.new(ticker_event_params)
 
     if @ticker_event.save
-      render json: @ticker_event, status: :created, location: @ticker_event
+      render json: @ticker_event, status: :created
     else
       render json: @ticker_event.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class TickerEventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticker_event_params
-      params.fetch(:ticker_event, {})
+      params.require(:ticker_event).permit(:ticker_id, :minute, :user_id, :event_type)
     end
 end

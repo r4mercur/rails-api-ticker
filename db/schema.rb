@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_06_072603) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_20_180144) do
   create_table "competitions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -69,6 +69,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_06_072603) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "event_id"
+    t.string "minute"
     t.index ["team_id"], name: "index_ticker_events_on_team_id"
     t.index ["ticker_id"], name: "index_ticker_events_on_ticker_id"
   end
