@@ -27,7 +27,7 @@ class TickersController < ApplicationController
     @ticker = Ticker.new(ticker_params)
 
     if @ticker.save
-      render json: @ticker, status: :created, location: @ticker
+      render json: @ticker.as_json(include: [:game]), status: :created, location: @ticker
     else
       render json: @ticker.errors, status: :unprocessable_entity
     end
