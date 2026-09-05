@@ -24,7 +24,7 @@ class Api::V1::TeamsController < ApplicationController
         @participation = Participation.create(team: @team, competition: @competition)
       end
 
-      render json: @team, status: :created, location: @team
+      render json: @team, status: :created, location: [:api, :v1, @team]
     else
       render json: @team.errors, status: :unprocessable_entity
     end

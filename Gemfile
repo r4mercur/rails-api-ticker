@@ -41,12 +41,20 @@ gem "rack-attack"
 # Faker for generating fake data
 gem 'faker', '~> 3.5', '>= 3.5.1'
 
+# OpenAPI/Swagger documentation, generated from request specs, served at /api-docs
+gem "rswag-api"
+gem "rswag-ui"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
 
   # Use sqlite3 as the database for Active Record in development/test
   gem "sqlite3", "~> 1.4"
+
+  # RSpec + rswag-specs generate the OpenAPI doc from request specs
+  gem "rspec-rails", "~> 6.1"
+  gem "rswag-specs"
 end
 
 group :development do

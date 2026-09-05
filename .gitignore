@@ -39,3 +39,6 @@
 test/
 tmp/
 log/
+
+# RSpec run-history, not source
+/spec/examples.txt

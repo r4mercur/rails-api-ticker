@@ -1,4 +1,8 @@
 class Rack::Attack
+  # Throttling measures real traffic patterns; it only gets in the way of a test
+  # suite that fires many requests from the same IP within seconds.
+  Rack::Attack.enabled = !Rails.env.test?
+
   # Blunt brute-force login attempts: 5 tries per IP per 20 seconds.
   throttle('login attempts/ip', limit: 5, period: 20.seconds) do |req|
     req.ip if req.path == '/api/v1/login' && req.post?

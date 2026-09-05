@@ -1,0 +1,1348 @@
+---
+openapi: 3.0.1
+info:
+  title: Ticker API V1
+  version: v1
+  description: API zur Verwaltung von Wettbewerben, Teams, Spielern, Spielen und Live-Tickern.
+paths:
+  "/api/v1/competitions":
+    get:
+      summary: list competitions
+      tags:
+      - Competitions
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: page
+        in: query
+        required: false
+        description: Seitenzahl (aktiviert Pagination)
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Einträge pro Seite (1-100, Standard 25)
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: erfolgreich
+    post:
+      summary: create competition
+      tags:
+      - Competitions
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '201':
+          description: erstellt
+        '422':
+          description: ungültige Eingabe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                competition:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    type:
+                      type: string
+                      description: STI-Typ, falls verwendet
+                  required:
+                  - name
+  "/api/v1/competitions/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Wettbewerb-ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show competition
+      tags:
+      - Competitions
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          description: erfolgreich
+        '404':
+          description: nicht gefunden
+    patch:
+      summary: update competition
+      tags:
+      - Competitions
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                competition:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    type:
+                      type: string
+    put:
+      summary: replace competition
+      tags:
+      - Competitions
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                competition:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    type:
+                      type: string
+    delete:
+      summary: delete competition
+      tags:
+      - Competitions
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '204':
+          description: gelöscht
+  "/api/v1/competitions/{id}/teams":
+    parameters:
+    - name: id
+      in: path
+      description: Wettbewerb-ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: list teams in competition
+      tags:
+      - Competitions
+      security:
+      - cookieAuth: []
+      description: Alle Teams, die über eine Participation an diesem Wettbewerb teilnehmen.
+      responses:
+        '200':
+          description: erfolgreich
+  "/api/v1/competitions/{id}/games":
+    parameters:
+    - name: id
+      in: path
+      description: Wettbewerb-ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: list games in competition
+      tags:
+      - Competitions
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          description: erfolgreich
+  "/api/v1/competitions/{id}/games/{game_day}":
+    parameters:
+    - name: id
+      in: path
+      description: Wettbewerb-ID
+      required: true
+      schema:
+        type: integer
+    - name: game_day
+      in: path
+      description: Spieltag
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: list games on a matchday
+      tags:
+      - Competitions
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          description: erfolgreich
+  "/api/v1/games":
+    get:
+      summary: list games
+      tags:
+      - Games
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: page
+        in: query
+        required: false
+        description: Seitenzahl (aktiviert Pagination)
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Einträge pro Seite (1-100, Standard 25)
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: erfolgreich
+    post:
+      summary: create game
+      tags:
+      - Games
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '201':
+          description: erstellt
+        '422':
+          description: ungültige Eingabe (z. B. gleiches Heim-/Auswärtsteam)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                game:
+                  type: object
+                  properties:
+                    competition_id:
+                      type: integer
+                    team_home_id:
+                      type: integer
+                    team_away_id:
+                      type: integer
+                    match_day:
+                      type: integer
+                    location:
+                      type: string
+                    date:
+                      type: string
+                      format: date-time
+                  required:
+                  - competition_id
+                  - team_home_id
+                  - team_away_id
+                  - match_day
+                  - location
+                  - date
+  "/api/v1/games/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Spiel-ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show game
+      tags:
+      - Games
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          description: erfolgreich
+        '404':
+          description: nicht gefunden
+    patch:
+      summary: update game
+      tags:
+      - Games
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                game:
+                  type: object
+                  properties:
+                    goals_home:
+                      type: integer
+                    goals_away:
+                      type: integer
+                    location:
+                      type: string
+    put:
+      summary: replace game
+      tags:
+      - Games
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                game:
+                  type: object
+                  properties:
+                    goals_home:
+                      type: integer
+                    goals_away:
+                      type: integer
+                    location:
+                      type: string
+    delete:
+      summary: delete game
+      tags:
+      - Games
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '204':
+          description: gelöscht
+  "/api/v1/players":
+    get:
+      summary: list players
+      tags:
+      - Players
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: page
+        in: query
+        required: false
+        description: Seitenzahl (aktiviert Pagination)
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Einträge pro Seite (1-100, Standard 25)
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: erfolgreich
+    post:
+      summary: create player
+      tags:
+      - Players
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '201':
+          description: erstellt
+        '422':
+          description: ungültige Eingabe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                player:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    age:
+                      type: integer
+                    position:
+                      type: string
+                    number:
+                      type: integer
+                    team_id:
+                      type: integer
+                  required:
+                  - name
+                  - team_id
+  "/api/v1/players/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Spieler-ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show player
+      tags:
+      - Players
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          description: erfolgreich
+        '404':
+          description: nicht gefunden
+    patch:
+      summary: update player
+      tags:
+      - Players
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                player:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    age:
+                      type: integer
+                    position:
+                      type: string
+                    number:
+                      type: integer
+                    team_id:
+                      type: integer
+    put:
+      summary: replace player
+      tags:
+      - Players
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                player:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    age:
+                      type: integer
+                    position:
+                      type: string
+                    number:
+                      type: integer
+                    team_id:
+                      type: integer
+    delete:
+      summary: delete player
+      tags:
+      - Players
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '204':
+          description: gelöscht
+  "/api/v1/login":
+    post:
+      summary: log in
+      tags:
+      - Sessions
+      description: 'Startet eine Cookie-Session. Das Session-Cookie wird per Set-Cookie-Header
+        gesetzt und muss vom Client bei Folge-Requests automatisch mitgeschickt werden
+        (credentials: ''include'').'
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich eingeloggt
+        '401':
+          description: ungültige Zugangsdaten
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+              required:
+              - email
+              - password
+  "/api/v1/logout":
+    post:
+      summary: log out
+      tags:
+      - Sessions
+      description: Beendet die aktuelle Session (setzt session[:user_id] zurück).
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich ausgeloggt
+  "/api/v1/teams":
+    get:
+      summary: list teams
+      tags:
+      - Teams
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: page
+        in: query
+        required: false
+        description: Seitenzahl (aktiviert Pagination)
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Einträge pro Seite (1-100, Standard 25)
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: erfolgreich
+    post:
+      summary: create team
+      tags:
+      - Teams
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '201':
+          description: erstellt
+        '422':
+          description: ungültige Eingabe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                team:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    shortname:
+                      type: string
+                  required:
+                  - name
+                competition_id:
+                  type: integer
+                  nullable: true
+                  description: 'Optional: legt zusätzlich eine Participation an, die
+                    das Team diesem Wettbewerb zuordnet.'
+  "/api/v1/teams/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Team-ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show team
+      tags:
+      - Teams
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          description: erfolgreich
+        '404':
+          description: nicht gefunden
+    patch:
+      summary: update team
+      tags:
+      - Teams
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                team:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    shortname:
+                      type: string
+    put:
+      summary: replace team
+      tags:
+      - Teams
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                team:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    shortname:
+                      type: string
+    delete:
+      summary: delete team
+      tags:
+      - Teams
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '204':
+          description: gelöscht
+  "/api/v1/teams/{id}/upload_logo":
+    parameters:
+    - name: id
+      in: path
+      description: Team-ID
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: upload team logo
+      tags:
+      - Teams
+      security:
+      - cookieAuth: []
+      description: Nimmt ein Bild als Base64-Data-URI entgegen (png/jpeg/webp, max.
+        5 MB) und speichert es immer als public/images/team_<id>.png, unabhängig vom
+        Quellformat.
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich hochgeladen
+        '422':
+          description: ungültiges oder zu großes Bild
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                logo:
+                  type: string
+                  description: Base64-Data-URI, z. B. 'data:image/png;base64,...'
+              required:
+              - logo
+  "/api/v1/ticker_events":
+    get:
+      summary: list ticker events
+      tags:
+      - TickerEvents
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: page
+        in: query
+        required: false
+        description: Seitenzahl (aktiviert Pagination)
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Einträge pro Seite (1-100, Standard 25)
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: erfolgreich
+    post:
+      summary: create ticker event
+      tags:
+      - TickerEvents
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '201':
+          description: erstellt
+        '422':
+          description: ungültige Eingabe (z. B. falsches Minuten-Format)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ticker_event:
+                  type: object
+                  properties:
+                    ticker_id:
+                      type: integer
+                    minute:
+                      type: string
+                      description: Format MM:SS, z. B. '45:00'
+                    user_id:
+                      type: integer
+                    event_type:
+                      type: integer
+                    player_id:
+                      type: integer
+                      nullable: true
+                    fk_player1_id:
+                      type: integer
+                      nullable: true
+                    fk_player2_id:
+                      type: integer
+                      nullable: true
+                  required:
+                  - ticker_id
+                  - minute
+                  - user_id
+  "/api/v1/ticker_events/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Ticker-Event-ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show ticker event
+      tags:
+      - TickerEvents
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          description: erfolgreich
+        '404':
+          description: nicht gefunden
+    patch:
+      summary: update ticker event
+      tags:
+      - TickerEvents
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ticker_event:
+                  type: object
+                  properties:
+                    minute:
+                      type: string
+                    event_type:
+                      type: integer
+    put:
+      summary: replace ticker event
+      tags:
+      - TickerEvents
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ticker_event:
+                  type: object
+                  properties:
+                    minute:
+                      type: string
+                    event_type:
+                      type: integer
+    delete:
+      summary: delete ticker event
+      tags:
+      - TickerEvents
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '204':
+          description: gelöscht
+  "/api/v1/tickers":
+    get:
+      summary: list tickers
+      tags:
+      - Tickers
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: page
+        in: query
+        required: false
+        description: Seitenzahl (aktiviert Pagination)
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Einträge pro Seite (1-100, Standard 25)
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: erfolgreich
+    post:
+      summary: create ticker
+      tags:
+      - Tickers
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '201':
+          description: erstellt
+        '422':
+          description: ungültige Eingabe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ticker:
+                  type: object
+                  properties:
+                    game_id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    ticker_state:
+                      type: integer
+                      description: 0=not_started, 1=first_half, 2=second_half, 3=third_half,
+                        4=fourth_half, 5=ended, 999=half_time
+                  required:
+                  - game_id
+                  - user_id
+  "/api/v1/tickers/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Ticker-ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show ticker
+      tags:
+      - Tickers
+      security:
+      - cookieAuth: []
+      description: Liefert den Ticker inklusive Spiel, beider Teams samt Spielern
+        und aller Ticker-Events.
+      responses:
+        '200':
+          description: erfolgreich
+        '404':
+          description: nicht gefunden
+    patch:
+      summary: update ticker
+      tags:
+      - Tickers
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ticker:
+                  type: object
+                  properties:
+                    ticker_state:
+                      type: integer
+    put:
+      summary: replace ticker
+      tags:
+      - Tickers
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ticker:
+                  type: object
+                  properties:
+                    ticker_state:
+                      type: integer
+    delete:
+      summary: delete ticker
+      tags:
+      - Tickers
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '204':
+          description: gelöscht
+  "/api/v1/users/{id}/tickers":
+    parameters:
+    - name: id
+      in: path
+      description: User-ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: list tickers for a user
+      tags:
+      - Tickers
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          description: erfolgreich
+  "/api/v1/users":
+    get:
+      summary: list users
+      tags:
+      - Users
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: page
+        in: query
+        required: false
+        description: Seitenzahl. Ohne diesen Parameter wird die volle, unpaginierte
+          Liste zurückgegeben.
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        description: Einträge pro Seite (1-100, Standard 25). Nur wirksam zusammen
+          mit page.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: erfolgreich
+        '401':
+          description: nicht eingeloggt
+    post:
+      summary: create user
+      tags:
+      - Users
+      description: Registrierung – einzige öffentlich erreichbare User-Aktion neben
+        Login.
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '201':
+          description: user erstellt
+        '422':
+          description: ungültige Eingabe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                    username:
+                      type: string
+                    password:
+                      type: string
+                      format: password
+                    password_confirmation:
+                      type: string
+                      format: password
+                  required:
+                  - email
+                  - username
+                  - password
+                  - password_confirmation
+  "/api/v1/users/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: User-ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show user
+      tags:
+      - Users
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          description: erfolgreich
+        '404':
+          description: nicht gefunden
+    patch:
+      summary: update user
+      tags:
+      - Users
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                    username:
+                      type: string
+                    password:
+                      type: string
+                      format: password
+                    password_confirmation:
+                      type: string
+                      format: password
+    put:
+      summary: replace user
+      tags:
+      - Users
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: erfolgreich aktualisiert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                    username:
+                      type: string
+                    password:
+                      type: string
+                      format: password
+                    password_confirmation:
+                      type: string
+                      format: password
+    delete:
+      summary: delete user
+      tags:
+      - Users
+      security:
+      - cookieAuth: []
+      parameters:
+      - name: Origin
+        in: header
+        required: true
+        description: Muss einer erlaubten Frontend-Origin entsprechen (CSRF-Schutz,
+          siehe ApplicationController#verify_origin!).
+        schema:
+          type: string
+      responses:
+        '204':
+          description: gelöscht
+servers:
+- url: http://localhost:3000
+  description: Lokale Entwicklung
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: _ticker_api_session
+      description: Session-Cookie, das nach POST /api/v1/login gesetzt wird. Alle
+        Endpunkte außer Login/Registrierung erfordern eine eingeloggte Session.

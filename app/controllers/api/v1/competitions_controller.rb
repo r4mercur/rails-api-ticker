@@ -36,7 +36,7 @@ class Api::V1::CompetitionsController < ApplicationController
     @competition = Competition.new(competition_params)
 
     if @competition.save
-      render json: @competition, status: :created, location: @competition
+      render json: @competition, status: :created, location: [:api, :v1, @competition]
     else
       render json: @competition.errors, status: :unprocessable_entity
     end
