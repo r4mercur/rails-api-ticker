@@ -1,16 +1,12 @@
-# SQLite. Versions 3.8.0 and up are supported.
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem "sqlite3"
-#
+# Development and test keep using SQLite (zero local setup).
+# Production runs on PostgreSQL - see the `production` section below.
 default: &default
-  adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
 
 development:
   <<: *default
+  adapter: sqlite3
+  timeout: 5000
   database: storage/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
@@ -18,8 +14,14 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  adapter: sqlite3
+  timeout: 5000
   database: storage/test.sqlite3
 
+# Configured via a single DATABASE_URL env var, e.g.
+#   postgres://user:password@host:5432/ticker_api_production
+# This is the convention most hosts (Heroku, Render, Fly.io, ...) provide out of the box.
 production:
   <<: *default
-  database: storage/production.sqlite3
+  adapter: postgresql
+  url: <%= ENV["DATABASE_URL"] %>
