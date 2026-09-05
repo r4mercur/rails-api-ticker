@@ -1,9 +1,9 @@
-class PlayersController < ApplicationController
+class Api::V1::PlayersController < ApplicationController
   before_action :set_player, only: %i[ show update destroy ]
 
   # GET /players
   def index
-    @players = Player.all
+    @players = paginate(Player.all)
 
     render json: @players
   end
@@ -46,6 +46,6 @@ class PlayersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def player_params
-      params.fetch(:player, {})
+      params.require(:player).permit(:name, :age, :position, :number, :team_id)
     end
 end

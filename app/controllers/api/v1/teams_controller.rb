@@ -1,9 +1,9 @@
-class TeamsController < ApplicationController
+class Api::V1::TeamsController < ApplicationController
   before_action :set_team, only: %i[ show update destroy ]
 
   # GET /teams
   def index
-    @teams = Team.all
+    @teams = paginate(Team.all)
 
     render json: @teams
   end
@@ -30,23 +30,28 @@ class TeamsController < ApplicationController
     end
   end
 
+  # The client always requests the logo back as "team_<id>.png" (see TeamView.vue),
+  # so every accepted format is normalized to a .png filename on disk.
+  ALLOWED_LOGO_CONTENT_TYPES = %w[image/png image/jpeg image/webp].freeze
+  MAX_LOGO_SIZE = 5.megabytes
+
   def upload_team_logo
     @team = Team.find(params[:id])
-    if @team && params[:logo]
-      base64_data = params[:logo].sub(/^data:image\/\w+;base64,/, '')
-      file_data = Base64.decode64(base64_data)
+    match = params[:logo].to_s.match(%r{\Adata:(image/[\w.+-]+);base64,(.+)\z}m)
 
-      filename = "team_#{params[:id]}.png"
-      filepath = Rails.root.join('public', 'images', filename)
-
-      File.open(filepath, 'wb') do |file|
-        file.write(file_data)
-      end
-
-      render json: { success: true, message: 'Logo uploaded successfully' }
-    else
-      render json: { success: false, message: 'Logo upload failed' }
+    unless match && ALLOWED_LOGO_CONTENT_TYPES.include?(match[1])
+      return render json: { success: false, message: 'Unsupported or missing image' }, status: :unprocessable_entity
     end
+
+    file_data = Base64.decode64(match[2])
+    if file_data.bytesize > MAX_LOGO_SIZE
+      return render json: { success: false, message: 'Image too large' }, status: :unprocessable_entity
+    end
+
+    filepath = Rails.root.join('public', 'images', "team_#{@team.id}.png")
+    File.binwrite(filepath, file_data)
+
+    render json: { success: true, message: 'Logo uploaded successfully' }
   end
 
   # PATCH/PUT /teams/1

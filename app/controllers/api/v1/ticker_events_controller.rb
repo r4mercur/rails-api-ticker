@@ -1,9 +1,9 @@
-class TickerEventsController < ApplicationController
+class Api::V1::TickerEventsController < ApplicationController
   before_action :set_ticker_event, only: %i[ show update destroy ]
 
   # GET /ticker_events
   def index
-    @ticker_events = TickerEvent.all
+    @ticker_events = paginate(TickerEvent.all)
 
     render json: @ticker_events
   end
@@ -46,6 +46,14 @@ class TickerEventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticker_event_params
-      params.require(:ticker_event).permit(:ticker_id, :minute, :user_id, :event_type)
+      params.require(:ticker_event).permit(
+        :ticker_id,
+        :minute,
+        :user_id,
+        :event_type,
+        :player_id,
+        :fk_player1_id,
+        :fk_player2_id
+      ).compact
     end
 end

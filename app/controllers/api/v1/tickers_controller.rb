@@ -1,16 +1,20 @@
-class TickersController < ApplicationController
-  before_action :set_ticker, only: %i[ show update destroy ]
+class Api::V1::TickersController < ApplicationController
+  before_action :set_ticker, only: %i[ update destroy ]
 
   # GET /tickers
   def index
-    @tickers = Ticker.all
+    @tickers = paginate(Ticker.all)
 
     render json: @tickers
   end
 
   # GET /tickers/1
   def show
-    @ticker = Ticker.find(params[:id])
+    @ticker = Ticker.includes(
+      game: [{ team_home: :players }, { team_away: :players }],
+      ticker_events: {}
+    ).find(params[:id])
+
     render json: @ticker.as_json(include: {
       game: {
         include: {

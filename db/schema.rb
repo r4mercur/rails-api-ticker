@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_20_180144) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_21_153447) do
   create_table "competitions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -71,6 +71,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_20_180144) do
     t.integer "user_id"
     t.integer "event_id"
     t.string "minute"
+    t.integer "player_id"
+    t.integer "fk_player1_id"
+    t.integer "fk_player2_id"
+    t.index ["fk_player1_id"], name: "index_ticker_events_on_fk_player1_id"
+    t.index ["fk_player2_id"], name: "index_ticker_events_on_fk_player2_id"
+    t.index ["player_id"], name: "index_ticker_events_on_player_id"
     t.index ["team_id"], name: "index_ticker_events_on_team_id"
     t.index ["ticker_id"], name: "index_ticker_events_on_ticker_id"
   end
@@ -101,6 +107,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_20_180144) do
   add_foreign_key "participations", "competitions"
   add_foreign_key "participations", "teams"
   add_foreign_key "players", "teams"
+  add_foreign_key "ticker_events", "players"
+  add_foreign_key "ticker_events", "players", column: "fk_player1_id"
+  add_foreign_key "ticker_events", "players", column: "fk_player2_id"
   add_foreign_key "ticker_events", "teams"
   add_foreign_key "ticker_events", "tickers"
   add_foreign_key "tickers", "games"

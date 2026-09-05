@@ -31,8 +31,9 @@ module TickerApi
 
     # enable session for the app
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore, key: '_ticker_api_session'
-    config.middleware.use ActionDispatch::Session::CookieStore, key: '_ticker_api_session', domain: 'localhost:5173'
-
+    config.middleware.use ActionDispatch::Session::CookieStore,
+      key: '_ticker_api_session',
+      same_site: Rails.env.production? ? :none : :lax,
+      secure: Rails.env.production?
   end
 end

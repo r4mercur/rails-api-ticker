@@ -35,6 +35,12 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 gem "rack-cors"
 
+# Pagination for index endpoints
+gem "kaminari"
+
+# Rate limiting / throttling (e.g. brute-force protection on login)
+gem "rack-attack"
+
 # Faker for generating fake data
 gem 'faker', '~> 3.5', '>= 3.5.1'
 

@@ -1,9 +1,9 @@
-class CompetitionsController < ApplicationController
+class Api::V1::CompetitionsController < ApplicationController
   before_action :set_competition, only: %i[show update destroy]
 
   # GET /competitions
   def index
-    @competitions = Competition.all
+    @competitions = paginate(Competition.all)
 
     render json: @competitions
   end
@@ -21,13 +21,13 @@ class CompetitionsController < ApplicationController
 
   def games
     @competition = Competition.find(params[:id])
-    @games = Game.where(competition_id: @competition.id)
+    @games = Game.includes(:team_home, :team_away).where(competition_id: @competition.id)
     render json: @games, include: %i[team_home team_away]
   end
 
   def games_by_day
     @competition = Competition.find(params[:id])
-    @games = Game.where(competition_id: @competition.id, match_day: params[:game_day])
+    @games = Game.includes(:team_home, :team_away).where(competition_id: @competition.id, match_day: params[:game_day])
     render json: @games, include: %i[team_home team_away]
   end
 

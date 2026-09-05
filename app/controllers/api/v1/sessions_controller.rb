@@ -1,4 +1,6 @@
-class SessionsController < ApplicationController
+class Api::V1::SessionsController < ApplicationController
+  skip_before_action :require_login, only: %i[create destroy]
+
   def create
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])

@@ -1,9 +1,9 @@
-class GamesController < ApplicationController
+class Api::V1::GamesController < ApplicationController
   before_action :set_game, only: %i[ show update destroy ]
 
   # GET /games
   def index
-    @games = Game.all
+    @games = paginate(Game.includes(:team_home, :team_away).all)
     render json: @games, include: [:team_home, :team_away]
   end
 
@@ -39,7 +39,7 @@ class GamesController < ApplicationController
 
   private
     def set_game
-      @game = Game.find(params[:id])
+      @game = Game.includes(:team_home, :team_away).find(params[:id])
     end
 
     def game_params
