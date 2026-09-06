@@ -10,7 +10,7 @@ class Api::V1::TeamsController < ApplicationController
 
   # GET /teams/1
   def show
-    render json: @team
+    render json: @team, include: { players: {}, competitions: { only: %i[id name] } }
   end
 
   # POST /teams
@@ -76,6 +76,6 @@ class Api::V1::TeamsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def team_params
-      params.require(:team).permit(:name, :shortname, :competition_id)
+      params.require(:team).permit(:name, :shortname, :competition_id, :coach_name)
     end
 end

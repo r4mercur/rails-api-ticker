@@ -38,8 +38,8 @@ class Api::V1::TickersController < ApplicationController
   end
 
   def get_ticker_by_user_id
-    @ticker = Ticker.where(user_id: params[:id])
-    render json: @ticker.as_json(include: [:game])
+    @ticker = Ticker.includes(game: %i[team_home team_away]).where(user_id: params[:id])
+    render json: @ticker.as_json(include: { game: { include: %i[team_home team_away] } })
   end
 
   # PATCH/PUT /tickers/1
@@ -64,6 +64,13 @@ class Api::V1::TickersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticker_params
-      params.require(:ticker).permit(:game_id, :user_id, :ticker_state)
+      params.require(:ticker).permit(
+        :game_id, :user_id, :ticker_state,
+        :possession_home, :possession_away,
+        :shots_home, :shots_away,
+        :shots_on_target_home, :shots_on_target_away,
+        :corners_home, :corners_away,
+        :fouls_home, :fouls_away
+      )
     end
 end

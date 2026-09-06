@@ -10,11 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_21_153447) do
+ActiveRecord::Schema[7.1].define(version: 2026_09_06_090849) do
   create_table "competitions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "game_lineups", force: :cascade do |t|
+    t.integer "game_id", null: false
+    t.integer "player_id", null: false
+    t.boolean "starting", default: false, null: false
+    t.string "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id", "player_id"], name: "index_game_lineups_on_game_id_and_player_id", unique: true
+    t.index ["game_id"], name: "index_game_lineups_on_game_id"
+    t.index ["player_id"], name: "index_game_lineups_on_player_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -50,6 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_21_153447) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "team_id"
+    t.integer "status", default: 0, null: false
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
@@ -59,6 +72,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_21_153447) do
     t.datetime "updated_at", null: false
     t.string "shortname"
     t.string "logo_url"
+    t.string "coach_name"
   end
 
   create_table "ticker_events", force: :cascade do |t|
@@ -90,7 +104,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_21_153447) do
     t.datetime "updated_at", null: false
     t.integer "ticker_state", default: 0, null: false
     t.integer "user_id"
+    t.string "public_slug"
+    t.integer "possession_home", default: 0, null: false
+    t.integer "possession_away", default: 0, null: false
+    t.integer "shots_home", default: 0, null: false
+    t.integer "shots_away", default: 0, null: false
+    t.integer "shots_on_target_home", default: 0, null: false
+    t.integer "shots_on_target_away", default: 0, null: false
+    t.integer "corners_home", default: 0, null: false
+    t.integer "corners_away", default: 0, null: false
+    t.integer "fouls_home", default: 0, null: false
+    t.integer "fouls_away", default: 0, null: false
     t.index ["game_id"], name: "index_tickers_on_game_id"
+    t.index ["public_slug"], name: "index_tickers_on_public_slug", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -101,6 +127,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_21_153447) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "game_lineups", "games"
+  add_foreign_key "game_lineups", "players"
   add_foreign_key "games", "competitions"
   add_foreign_key "games", "teams", column: "team_away_id"
   add_foreign_key "games", "teams", column: "team_home_id"

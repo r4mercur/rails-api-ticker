@@ -50,7 +50,10 @@ RSpec.describe "api/v1/users", type: :request do
         let(:user) do
           { user: { email: "new-user@example.com", username: "new-user", password: "password123", password_confirmation: "password123" } }
         end
-        run_test!
+        run_test! do
+          # Registration logs the user in server-side too, just like /login does.
+          expect(session[:user_id]).to eq(User.find_by(email: "new-user@example.com").id)
+        end
       end
 
       response(422, "ungültige Eingabe") do

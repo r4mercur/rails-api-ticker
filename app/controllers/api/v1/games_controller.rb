@@ -1,15 +1,23 @@
 class Api::V1::GamesController < ApplicationController
   before_action :set_game, only: %i[ show update destroy ]
 
+  # Ticker is included so schedule views can show live/planned/finished status
+  # and the (cached) score without an extra request per game.
+  GAME_INCLUDES = {
+    team_home: {},
+    team_away: {},
+    ticker: { only: %i[id ticker_state goals_home goals_away] }
+  }.freeze
+
   # GET /games
   def index
-    @games = paginate(Game.includes(:team_home, :team_away).all)
-    render json: @games, include: [:team_home, :team_away]
+    @games = paginate(Game.includes(:team_home, :team_away, :ticker).all)
+    render json: @games, include: GAME_INCLUDES
   end
 
   # GET /games/1
   def show
-    render json: @game, include: [:team_home, :team_away]
+    render json: @game, include: GAME_INCLUDES
   end
 
   # POST /games
@@ -39,7 +47,7 @@ class Api::V1::GamesController < ApplicationController
 
   private
     def set_game
-      @game = Game.includes(:team_home, :team_away).find(params[:id])
+      @game = Game.includes(:team_home, :team_away, :ticker).find(params[:id])
     end
 
     def game_params

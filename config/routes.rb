@@ -10,7 +10,9 @@ Rails.application.routes.draw do
       resources :teams
       resources :competitions
       resources :users
-      resources :games
+      resources :games do
+        resources :lineups, controller: "game_lineups", only: %i[index create update destroy]
+      end
 
       post "login", to: "sessions#create"
       post "logout", to: "sessions#destroy"
@@ -20,6 +22,9 @@ Rails.application.routes.draw do
       get "competitions/:id/teams", to: "competitions#teams"
       get "competitions/:id/games", to: "competitions#games"
       get "competitions/:id/games/:game_day", to: "competitions#games_by_day"
+      get "competitions/:id/standings", to: "competitions#standings"
+
+      get "public/tickers/:slug", to: "public_tickers#show"
     end
   end
 

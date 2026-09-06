@@ -53,7 +53,9 @@ class Api::V1::TickerEventsController < ApplicationController
         :event_type,
         :player_id,
         :fk_player1_id,
-        :fk_player2_id
+        :fk_player2_id,
+        :text,
+        :team_id
       ).compact
     end
 end

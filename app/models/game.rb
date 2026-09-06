@@ -2,6 +2,8 @@ class Game < ApplicationRecord
   belongs_to :competition
   belongs_to :team_home, class_name: 'Team'
   belongs_to :team_away, class_name: 'Team'
+  has_one :ticker
+  has_many :lineups, class_name: 'GameLineup'
 
   validates :goals_home, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
   validates :goals_away, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
